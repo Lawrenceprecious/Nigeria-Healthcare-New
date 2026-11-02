@@ -16,6 +16,7 @@ app.use(express.json({ limit: "100kb" }));
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true, maxlength: 100 },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  phone: { type: String, trim: true, maxlength: 30, default: "" },
   passwordHash: { type: String, required: true },
   role: { type: String, enum: ["patient", "provider", "admin"], default: "patient" }
 }, { timestamps: true });
@@ -68,15 +69,16 @@ app.get("/api/health", (req, res) => res.json({ status: "ok", service: "HealthCo
 
 app.post("/api/auth/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body || {};
+    const { name, email, password, phone } = req.body || {};
+    const requestedRole = req.body?.role === "provider" ? "provider" : "patient";
     if (!name || !email || !password) return res.status(400).json({ error: "Name, email and password are required." });
     if (String(password).length < 10) return res.status(400).json({ error: "Use a password with at least 10 characters." });
     const existing = await User.findOne({ email: String(email).toLowerCase().trim() });
     if (existing) return res.status(409).json({ error: "An account with this email already exists." });
     const passwordHash = await bcrypt.hash(password, 12);
-    const user = await User.create({ name, email, passwordHash, role: "patient" });
+    const user = await User.create({ name, email, phone: String(phone || "").slice(0, 30), passwordHash, role: requestedRole });
     const token = jwt.sign({ sub: user._id.toString(), role: user.role }, JWT_SECRET, { expiresIn: "2h" });
-    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role } });
   } catch (err) {
     if (err.code === 11000) return res.status(409).json({ error: "An account with this email already exists." });
     console.error(err);
@@ -93,7 +95,7 @@ app.post("/api/auth/login", async (req, res) => {
       return res.status(401).json({ error: "Email or password is incorrect." });
     }
     const token = jwt.sign({ sub: user._id.toString(), role: user.role }, JWT_SECRET, { expiresIn: "2h" });
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+    res.json({ token, user: { id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role } });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not log in." });

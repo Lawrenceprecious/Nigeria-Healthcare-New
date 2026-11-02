@@ -1,0 +1,11 @@
+document.addEventListener('DOMContentLoaded',()=>{
+ const q=new URLSearchParams(location.search);
+ const facility=q.get('facility'); const selector=document.getElementById('bookingFacility'); if(selector&&facility){for(const o of selector.options){if(o.text===facility)o.selected=true;}}
+ const search=document.getElementById('facilitySearch'), type=document.getElementById('facilityType'), cards=[...document.querySelectorAll('#facilityCards [data-name]')];
+ function filter(){if(!cards.length)return;let n=0;cards.forEach(c=>{const ok=c.dataset.name.includes((search?.value||'').toLowerCase())&&(type?.value==='all'||c.dataset.type===type?.value);c.hidden=!ok;if(ok)n++;});const no=document.getElementById('noFacilities');if(no)no.hidden=n>0;}
+ document.getElementById('searchFacilities')?.addEventListener('click',filter);search?.addEventListener('input',filter);type?.addEventListener('change',filter);
+ const form=document.getElementById('bookingForm');form?.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));const list=JSON.parse(localStorage.getItem('hc_demo_appointments')||'[]');list.push({...data,createdAt:new Date().toISOString(),status:'Pending demo'});localStorage.setItem('hc_demo_appointments',JSON.stringify(list));document.getElementById('bookingMessage').textContent='Your demo request was saved in this browser. No hospital has been contacted.';form.reset();});
+ const login=document.getElementById('loginForm');login?.addEventListener('submit',e=>{e.preventDefault();document.getElementById('loginMessage').textContent='Sign-in is a UI preview only. Connect the backend before using real accounts.';});
+ const reg=document.getElementById('registerForm');reg?.addEventListener('submit',e=>{e.preventDefault();document.getElementById('registerMessage').textContent='Registration UI validated. Connect the backend before creating real accounts.';});
+ const role=q.get('role');if(role&&document.getElementById('accountRole'))document.getElementById('accountRole').value=role;
+});

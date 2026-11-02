@@ -1,0 +1,1 @@
+QUICK CHROME PREVIEW: Open OPEN-THIS-IN-CHROME.html from the ZIP. Full project: open healthconnect-project/index.html using VS Code Live Server. Backend setup: see healthconnect-project/README.md and backend/.env.example. Backend is a starter and is not yet connected to the frontend.

@@ -1,0 +1,46 @@
+
+/* HealthConnect Nigeria usability, accessibility and consent additions */
+:focus-visible{outline:3px solid #159a70!important;outline-offset:3px!important}
+.skip-link{position:fixed;left:12px;top:-60px;z-index:10001;background:#fff;color:#123;padding:12px 16px;border:2px solid #0b4d8a;border-radius:6px}.skip-link:focus{top:12px}
+.floating-contact{position:fixed;right:18px;bottom:20px;z-index:9998;background:#0b4d8a;color:#fff!important;border:0;border-radius:8px;padding:13px 16px;font-weight:700;box-shadow:0 5px 20px #0002;text-decoration:none}
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:10000;max-width:760px;margin:auto;background:#fff;color:#17212b;border:1px solid #d8e2ea;border-radius:12px;padding:18px;box-shadow:0 12px 45px #0003;display:none}.cookie-banner p{margin:0 0 12px;line-height:1.55}.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}.cookie-actions button{border-radius:6px;padding:10px 14px;border:1px solid #0b4d8a;background:#fff;color:#0b4d8a;cursor:pointer}.cookie-actions .accept{background:#0b4d8a;color:#fff}.legal-page{max-width:900px;margin:0 auto;padding:36px 20px 80px;line-height:1.75;color:#243342}.legal-page h1,.legal-page h2{line-height:1.25;color:#103e65}.legal-page h2{margin-top:30px}.legal-notice{background:#fff8e5;border-left:4px solid #c58a18;padding:14px 16px;margin:18px 0}.legal-page a{color:#075d9b;text-decoration:underline}.site-footer .legal-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px}.site-footer .legal-links a{color:inherit;text-decoration:underline}.consent-row{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:14px;line-height:1.5}.consent-row input{margin-top:5px;min-width:16px;min-height:16px}.contact-panel{display:none;position:fixed;right:18px;bottom:78px;z-index:9998;background:white;color:#17212b;border:1px solid #d8e2ea;border-radius:10px;padding:18px;max-width:290px;box-shadow:0 8px 30px #0002}.contact-panel.open{display:block}.contact-panel button{background:#0b4d8a;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* Welcome-page and usability refinements */
+:root {
+  --hc-emerald: #064E3B;
+  --hc-porcelain: #F8F7F4;
+  --hc-champagne: #F8E7C9;
+}
+html { scroll-behavior: smooth; }
+body { background-color: var(--hc-porcelain); }
+a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #C5A880;
+  outline-offset: 3px;
+}
+.site-header { position: sticky; top: 0; z-index: 50; }
+.brand { text-decoration: none; }
+.hero { overflow: hidden; }
+.hero-copy .eyebrow { letter-spacing: .12em; }
+.hero-copy h1 { max-width: 740px; text-wrap: balance; }
+.hero-copy h1 span { color: var(--hc-emerald); }
+.hero-lede { max-width: 590px; line-height: 1.8; }
+.hero-search { box-shadow: 0 18px 50px rgba(6, 78, 59, .10); }
+.search-submit { white-space: nowrap; }
+.btn { transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease; }
+.btn:hover { transform: translateY(-2px); }
+.service-card, .provider-card, .step { transition: transform .2s ease, box-shadow .2s ease; }
+.service-card:hover, .provider-card:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(6, 78, 59, .09); }
+.section { scroll-margin-top: 90px; }
+@media (max-width: 700px) {
+  .hero-copy h1 { font-size: clamp(2.45rem, 11vw, 3.6rem); line-height: 1.08; }
+  .hero-search { gap: 10px; }
+  .search-submit { width: 100%; justify-content: center; }
+  .nav-actions .btn { padding-inline: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

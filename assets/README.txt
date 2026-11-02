@@ -1,0 +1,1 @@
+Place downloaded, properly licensed images in this folder if you want local/offline images. Current demo photos use remote Unsplash URLs and require an internet connection. Update image src URLs in facilities.html and public/index.html when replacing them. Do not use photos of real patients without consent.

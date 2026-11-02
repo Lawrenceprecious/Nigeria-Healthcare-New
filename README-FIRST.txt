@@ -1,0 +1,1 @@
+HealthConnect Nigeria updated prototype. Extract the ZIP, open healthconnect-project in VS Code, then use Live Server on index.html. Read healthconnect-project/README.md, especially the launch/security notes. Legal pages contain placeholders and require review before launch. Do not use real patient data yet.
